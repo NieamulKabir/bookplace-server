@@ -98,6 +98,16 @@ const run = async () => {
       const result = await userCollection.findOne({ email: email });
       res.send({ status: true, data: result });
     });
+
+    app.patch("/user/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: req.body,
+      };
+      const result = await userCollection.updateOne(query, updateDoc);
+      res.send({ status: true, data, result });
+    });
   } finally {
   }
 };
