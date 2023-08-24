@@ -33,6 +33,7 @@ const run = async () => {
         data: allBooks,
       });
     });
+
     //get single book by ID
     app.get("/book/:id", async (req, res) => {
       const id = req.params.id;
@@ -65,6 +66,7 @@ const run = async () => {
         data: result,
       });
     });
+
     //delete a single book
     app.delete("/book/:id", async (req, res) => {
       const id = req.params.id;
@@ -127,6 +129,7 @@ const run = async () => {
 
       res.send({ status: true, data: result });
     });
+    
     app.delete("/wishlist/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
@@ -137,7 +140,7 @@ const run = async () => {
       const userId = req.params.id;
       const result = await wishlistCollection.findOne({ userId });
 
-       res.send({ status: true, data: result });
+      res.send({ status: true, data: result });
     });
 
     // app.post("/addWishList", async (req, res) => {
