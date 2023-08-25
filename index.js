@@ -22,7 +22,7 @@ const run = async () => {
     const db = client.db("book-place");
     const bookCollection = db.collection("books");
     const userCollection = db.collection("users");
-    const wishlistCollection = db.collection("wishlists");
+    // const wishlistCollection = db.collection("wishlists");
 
     //get allbooks
     app.get("/books", async (req, res) => {
@@ -114,34 +114,47 @@ const run = async () => {
     });
 
     //wishlist
-    app.post("/addWishlist", async (req, res) => {
-      const { userId, bookId } = req.body;
-      const payload = { userId, bookId: [bookId] };
+    // app.post("/addWishlist", async (req, res) => {
+    //   const { userId, bookId } = req.body;
+    //   const payload = { userId,bookId};
 
-      let result;
-      const exist = await wishlistCollection.findOne({ userId });
-      if (exist) {
-        result = await wishlistCollection.findOneAndUpdate(
-          { userId },
-          { $push: { bookId: bookId } }
-        );
-      } else result = await wishlistCollection.insertOne(payload);
+    //   // console.log(bookId);
 
-      res.send({ status: true, data: result });
-    });
+    //   let result;
+    //   const exist = await wishlistCollection.findOne({ userId });
+    //   if (exist) {
+    //     result = await wishlistCollection.findOneAndUpdate(
+    //       { userId },
+    //       { $push: { bookId: bookId } }
+    //     );
+    //   } else result = await wishlistCollection.insertOne(payload);
+
+    //   res.send({ status: true, data: result });
+    // });
     
-    app.delete("/wishlist/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
-      const result = await wishlistCollection.findOne(query);
-      res.send({ status: true, data: result });
-    });
-    app.get("/wishlist/:id", async (req, res) => {
-      const userId = req.params.id;
-      const result = await wishlistCollection.findOne({ userId });
+    // app.patch("/wishlist/:id", async (req, res) => {
+    //   const id = req.params.id;
+    //   // console.log(id);
+    //   const query = { _id: new ObjectId(id) };
+    //   const result = await wishlistCollection.updateOne(
+    //     { query},
+    //     { $pull: { "bookId": ObjectId("64c4ab9245d82532b214c2f6") } }
+    //     );
+    //   res.send({ status: true, data: result });
+    //   console.log(result);
+    // });
+  //   db.collection.updateOne(
+  //     { "_id": ObjectId("64e6f9a5104d57041390fa98") }, // Replace with your document's _id
+  //     { $pull: { "bookId": ObjectId("64c4ab9245d82532b214c2f6") } }
+  //  )
 
-      res.send({ status: true, data: result });
-    });
+
+    // app.get("/wishlist/:id", async (req, res) => {
+    //   const userId = req.params.id;
+    //   const result = await wishlistCollection.findOne({ userId });
+
+    //   res.send({ status: true, data: result });
+    // });
 
     // app.post("/addWishList", async (req, res) => {
     //     const { userId, bookId } = req.body;
